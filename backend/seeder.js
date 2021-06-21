@@ -1,10 +1,10 @@
 import users from './data/users.js';
 import blogs from './data/blogs.js';
 import connectDB from './config/db.js';
-import User from './models/User.model';
+import User from './models/User.model.js';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose'
-import Blog from './models/Blog.model';
+import Blog from './models/Blog.model.js';
 import chalk from 'chalk';
 
 dotenv.config();
@@ -47,7 +47,7 @@ const destroyData = async () => {
     }
 };
 
-if (process.arv[2] === '-d') {
+if (process.argv[2] === '-d') {
     destroyData();
 } else {
     importData();

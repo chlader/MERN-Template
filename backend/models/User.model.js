@@ -3,11 +3,6 @@ import bcrypt from 'bcrypt';
 
 const UserSchema = mongoose.Schema(
     {
-        user: {
-            type: mongoose.Schema.type.ObjectId,
-            required: true,
-            ref: 'User'
-        },
         username: {
             type: String,
             required: true
@@ -21,8 +16,7 @@ const UserSchema = mongoose.Schema(
             required: true,
         },
         dateJoined: {
-            type: Date,
-            required: true
+            type: Date
         }
     },
     { timestamps: true }

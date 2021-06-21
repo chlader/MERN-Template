@@ -1,9 +1,16 @@
 import mongoose from 'mongoose';
-import UserSchema from './User.model'
+import User from './User.model.js'
+
+const Schema = mongoose.Schema;
 
 const BlogSchema = mongoose.Schema(
     {
-        author: { UserSchema },
+        author: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        ],
         title: {
             type: String,
             required: true

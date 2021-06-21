@@ -1,13 +1,15 @@
+import bcrypt from 'bcrypt';
+
 const users = [
     {
         username: 'ryanc',
-        password: '123456',
+        password: bcrypt.hashSync('123456', 10),
         email: 'ryanchladek96@gmail.com',
         dateJoined: new Date()
     },
     {
         username: 'claytonk',
-        password: 'Dodgers123',
+        password: bcrypt.hashSync('Dodgers123', 10),
         email: 'fake.email@example.com',
         dateJoined: new Date()
     }

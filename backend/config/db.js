@@ -15,8 +15,5 @@ const connectDB = async () => {
         process.exit(1)
     }
 };
-// TODO:
-// WORK ON SEEDER SCRIPT ITS NOT WOKRING 
-// Use Chakra UI
 
 export default connectDB;
