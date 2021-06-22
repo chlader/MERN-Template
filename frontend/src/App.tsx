@@ -1,15 +1,28 @@
-import React, { useState, useEffect } from 'react';
 import { Heading } from '@chakra-ui/layout';
-import { VStack, IconButton, useColorMode } from '@chakra-ui/react';
+import { VStack, Button, IconButton, useColorMode } from '@chakra-ui/react';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import './App.css';
-import { Login } from './components/Login';
+import { InputComponent } from './components/InputComponent';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
+
+interface Values {
+  name: string
+}
 
 function App() {
 
  const { colorMode, toggleColorMode } = useColorMode();
- const [name, setName] = useState('');
 
+ 
+const validateName = (name: string) => {
+  let error;
+  if (!name) {
+      error = "Name is required"
+  } else if (name.toLowerCase() !== 'naruto') {
+      error = "Jeez! You're not a fan 😱"; 
+  }
+  return error;
+}
 
 
   return (
@@ -29,9 +42,27 @@ function App() {
       >
         Log In
       </Heading>
-      { /* <TodoList todos={ todos } deleteTodo={deleteTodo} />
-      <AddTodo addTodo={addTodo} /> */}
-      <Login name={name}/>
+      <Formik
+        initialValues={{
+          name: ''
+        }}
+        onSubmit={(
+          values: Values,
+          { setSubmitting }: FormikHelpers<Values>
+        ) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false)
+          }, 500)
+        }}>
+          {(props: any) => (
+            <Form>
+              {console.log(props)}
+              <Field validate={validateName} name="name" component={InputComponent} />
+              <Button mt={4} colorScheme="blue" isLoading={props.isSubmitting} type="submit">Submit</Button>
+            </Form>
+          )}
+        </Formik>
     </VStack>
   );
 }
