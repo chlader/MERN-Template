@@ -3,14 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import App from './App';
+import store from './store';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider>
-      <ColorModeScript initialColorMode='light'/>
-      <App />
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider>
+        <ColorModeScript initialColorMode='light'/>
+        <App />
+      </ChakraProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

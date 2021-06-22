@@ -4,6 +4,7 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 import './App.css';
 import { InputComponent } from './components/InputComponent';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
+import BlogComponent from './components/BlogComponent';
 
 interface Values {
   name: string
@@ -57,12 +58,12 @@ const validateName = (name: string) => {
         }}>
           {(props: any) => (
             <Form>
-              {console.log(props)}
               <Field validate={validateName} name="name" component={InputComponent} />
               <Button mt={4} colorScheme="blue" isLoading={props.isSubmitting} type="submit">Submit</Button>
             </Form>
           )}
         </Formik>
+        <BlogComponent />
     </VStack>
   );
 }
