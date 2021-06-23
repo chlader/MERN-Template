@@ -1,41 +1,45 @@
-import { Button, Divider, Heading, VStack } from "@chakra-ui/react";
-import { Field, Form, Formik, FormikHelpers } from "formik"
-import { useEffect, useState } from "react";
+import { Button, Heading, HStack, useToast, VStack } from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik"
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/userActions";
 import { InputComponent } from "../components/InputComponent"
 
-const Login = ({ location, history }: { location: any, history: any}) => {
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const Login = ({ history }: { location: any, history: any}) => {
 
     const dispatch = useDispatch();
     
     const userLogin = useSelector((state: any) => state.userLogin);
-    const { loading, error, userInfo } = userLogin;
+    const { error, userInfo } = userLogin; // TODO: Set up vallidation
 
-    const redirect = location.search ? location.search.split('=')[1] : '/';
+    const toast = useToast();
+
+    const redirect = '/home';
 
     useEffect(() => {
         if (userInfo) {
             history.push(redirect);
         }
-    }, [history, userInfo, redirect]);
+        if (error) {
+            toast({
+                title: 'Invalid email or password',
+                status: 'error',
+                isClosable: true
+            })
+        }
+    }, [history, userInfo, redirect, error, toast]);
 
-    const submitHandler = (e: any) => {
-        e.preventDefault();
-        dispatch(login(email, password));
+    const submitHandler = ({ email, password }: { email: string, password: string }) => {
+        dispatch(login(email, password))
     }
-
 
     return (
         <VStack p={4}>
             <Heading pb={8}
-                fontWeight="extrabold"
-                size="2xl"
-                bgGradient="linear(to-r, blue.700, blue.500, blue.400)"
-                bgClip="text"
+            fontWeight="extrabold"
+            size="2xl"
+            bgGradient="linear(to-r, blue.700, blue.500, blue.400)"
+            bgClip="text"
             >
                 Log In
             </Heading>
@@ -44,13 +48,21 @@ const Login = ({ location, history }: { location: any, history: any}) => {
                 email: '',
                 password: ''
             }}
-            onSubmit={submitHandler}>
+            onSubmit={(values, actions) => {
+                setTimeout(() => {
+                    actions.setSubmitting(false);
+                    submitHandler(values);
+                })
+            }}>
                 {(props: any) => (
                     <Form>
                         <Field name="email" component={InputComponent} width={[300, 400, 500]} />
                         <div style={{marginTop: '25px'}}/>
                         <Field name="password" component={InputComponent} />
-                        <Button mt={4} colorScheme="blue" isLoading={props.isSubmitting} type="submit">Submit</Button>
+                        <HStack ml={160} mt={4}>
+                            <Button colorScheme="gray">Sign Up</Button>
+                            <Button colorScheme="blue" isLoading={props.isSubmitting} type="submit">Log In</Button>
+                        </HStack>
                     </Form>
                 )}
             </Formik>

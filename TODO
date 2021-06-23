@@ -6,7 +6,9 @@ Projects:
 Todos:
     ✔ Set up Chakra UI @started(21-06-21 10:09) @done(21-06-21 19:39) @lasted(9h30m21s)
     ☐ Login authentication on front end @high 
-    ☐ Make sure only users in the db can login @critical
+        -> Have to do error handling
+    ✔ Make sure only users in the db can login @critical @done(21-06-23 13:54)
+    ☐ Create navbar @low 
     ☐ Set up react-router @low 
         -> React router is basically done but need a larger site map
     ✔ Create validation function for InputComponent @done(21-06-22 23:32)
