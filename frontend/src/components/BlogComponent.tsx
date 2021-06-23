@@ -1,4 +1,4 @@
-import { Spinner } from '@chakra-ui/react';
+import { Box, Flex, Heading, HStack, Spinner, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listBlogs } from '../actions/blogActions';
@@ -15,15 +15,29 @@ const BlogComponent = () => {
 
     return (
         <div>
-            <h1>Latest Blogs</h1>
-            {loading ? (
-                <Spinner size="lg" />
-            ) : error ? (
-                <h3>{error}</h3>
-            ) : (blogs.map((blog: any) => (
-                <h1 key={blog._id}>{blog.title}</h1>
-            )))}
-            
+            <Flex>
+                <VStack>
+                    <HStack spacing={8}>
+                        {loading ? (
+                            <Spinner size="lg" />
+                        ) : error ? (
+                            <h3>{error}</h3>
+                        ) : (blogs.map((blog: any) => (
+                                <Box p="2">
+                                    <p>{new Intl.DateTimeFormat('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: '2-digit'
+                                    }).format(new Date(blog.date))}</p>
+                                    <h3>
+                                        {blog.title}
+                                    </h3>
+                                    <p>{blog.content}</p>
+                                </Box>
+                        )))}
+                    </HStack>
+                </VStack>
+            </Flex>
         </div>
     )
 }

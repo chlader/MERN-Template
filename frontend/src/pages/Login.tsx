@@ -59,8 +59,9 @@ const Login = ({ history }: { location: any, history: any}) => {
                         <Field name="email" component={InputComponent} width={[300, 400, 500]} />
                         <div style={{marginTop: '25px'}}/>
                         <Field name="password" component={InputComponent} />
-                        <HStack ml={160} mt={4}>
-                            <Button colorScheme="gray">Sign Up</Button>
+                        <HStack alignSelf="center" mt={4}> 
+                            {/* TODO: FIGURE OUT HOW TO CENTER THESE BUTTONS */}
+                            {/* <Button colorScheme="gray">Sign Up</Button> */}
                             <Button colorScheme="blue" isLoading={props.isSubmitting} type="submit">Log In</Button>
                         </HStack>
                     </Form>
